@@ -4,6 +4,9 @@
   "websearch": {
     "provider": "exa",
   },
+  "watcher": {
+    "ignore": ["logs/**"],
+  },
   "permissions": [
     {
       "action": "shell",
