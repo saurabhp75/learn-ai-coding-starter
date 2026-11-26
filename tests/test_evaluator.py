@@ -78,6 +78,25 @@ hallucinate(x)✨"""
     assert run(source) == "2\n"
 
 
+def test_loadbearing_can_be_read_but_slop_can_be_reassigned():
+    source = """loadbearing LIMIT = 100✨
+slop score = 10✨
+score = score + 1✨
+hallucinate(score)✨
+hallucinate(LIMIT)✨"""
+    assert run(source) == "11\n100\n"
+
+
+def test_loadbearing_is_shadowable_in_an_inner_scope():
+    source = """loadbearing LIMIT = 100✨
+{
+    loadbearing LIMIT = 50✨
+    hallucinate(LIMIT)✨
+}
+hallucinate(LIMIT)✨"""
+    assert run(source) == "50\n100\n"
+
+
 def test_loop_body_is_a_fresh_scope_each_iteration():
     source = """slop i = 0✨
 ralph i < 3 {

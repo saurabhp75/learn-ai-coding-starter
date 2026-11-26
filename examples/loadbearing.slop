@@ -1,0 +1,11 @@
+— loadbearing declares an immutable binding.
+loadbearing LIMIT = 100✨
+slop score = 10✨
+score = score + 1✨
+
+— This would be a runtime error:
+— cannot assign to loadbearing 'LIMIT'
+— LIMIT = 200✨
+
+hallucinate(score)✨
+hallucinate(LIMIT)✨
