@@ -54,6 +54,10 @@ def test_short_circuit_skips_right_operand():
     assert run("hallucinate(❌ && 1 / 0 == 0)✨\nhallucinate(✅ || 1 / 0 == 0)✨") == "❌\n✅\n"
 
 
+def test_not_flips_booleans():
+    assert run("hallucinate(!✅)✨\nhallucinate(!❌)✨\nhallucinate(!!✅)✨") == "❌\n✅\n✅\n"
+
+
 def test_division_by_zero_is_a_runtime_error():
     assert fails("hallucinate(1 / 0)✨") == "SlopLang runtime error at line 1: division by zero"
 
@@ -150,6 +154,8 @@ hallucinate(find())✨"""
     ("source", "message"),
     [
         ("hallucinate(-“a”)✨", "operand of unary '-' must be a number, got string"),
+        ("hallucinate(!1)✨", "operand of unary '!' must be a boolean, got number"),
+        ("hallucinate(!“a”)✨", "operand of unary '!' must be a boolean, got string"),
         ("hallucinate(“a” < “b”)✨", "operands of '<' must be numbers, got string and string"),
         ("hallucinate(1 - ✅)✨", "operands of '-' must be numbers, got number and boolean"),
         ("ralph 0 { }", "ralph condition must be a boolean, got number"),
