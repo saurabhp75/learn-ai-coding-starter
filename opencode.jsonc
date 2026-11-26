@@ -23,5 +23,10 @@
       "resource": "*",
       "effect": "allow",
     },
+    {
+      "action": "skill",
+      "resource": "create-test-program",
+      "effect": "ask",
+    },
   ],
 }
