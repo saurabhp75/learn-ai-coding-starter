@@ -27,7 +27,7 @@ Use `uv run ruff format` to fix formatting.
 
 ## Regression tests
 
-Add a regression test whenever you fix a bug or change behavior. Put it in the matching `tests/test_*.py` file (`test_lexer`, `test_parser`, `test_evaluator`, `test_cli`, or `test_errors`); end-to-end cases can use `run_source`. If you add an example, `tests/test_examples.py` already runs every `examples/*.slop`, and it must exit cleanly with output.
+Add a regression test whenever you fix a bug or change behavior. Put it in the matching `tests/test_*.py` file (`test_lexer`, `test_parser`, `test_evaluator`, `test_cli`, or `test_errors`); end-to-end cases can use `run_source`. Run comparison tests with `uv run pytest tests/test_comparisons.py`. If you add an example, `tests/test_examples.py` already runs every `examples/*.slop`, and it must exit cleanly with output.
 
 ## Language behavior
 
