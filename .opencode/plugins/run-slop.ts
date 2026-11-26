@@ -76,7 +76,7 @@ export default Plugin.define({
         description: "Run a SlopLang (.slop) file with Sloperator and return stdout, stderr, and the exit code.",
         input: inputSchema,
         output: outputSchema,
-        options: { codemode: false },
+        options: { codemode: false, permission: "run_slop" },
         execute: async (input, context) => {
           const filePath = resolve(projectRoot, (input as { path: string }).path)
           const result = await runSloperator(projectRoot, filePath, context.signal)
