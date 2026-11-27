@@ -17,6 +17,10 @@
           "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}",
         },
       },
+      "notion": {
+        "type": "remote",
+        "url": "https://mcp.notion.com/mcp",
+      },
     },
   },
   "permissions": [
