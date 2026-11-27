@@ -2,6 +2,7 @@ import pytest
 
 from sloperator.errors import LexicalError
 from sloperator.lexer import Token, TokenType, tokenize
+from sloperator.runner import run_source
 
 
 def types(source: str) -> list[TokenType]:
@@ -41,6 +42,30 @@ def test_variation_selector_after_emoji_is_absorbed():
 
 def test_number_literal_is_an_int():
     assert tokenize("9001")[0] == Token(TokenType.NUMBER, "9001", 9001, 1)
+
+
+def test_identifier_may_contain_digits_after_the_first_character():
+    # Digits were rejected after the first character, so `score2` tokenized as
+    # `score` followed by the number `2` and failed to parse.
+    assert tokenize("score2")[0] == Token(TokenType.IDENTIFIER, "score2", None, 1)
+
+
+def test_identifier_cannot_start_with_a_digit():
+    assert types("2score") == [TokenType.NUMBER, TokenType.IDENTIFIER, TokenType.EOF]
+
+
+def test_identifiers_with_digits_run_end_to_end():
+    result = run_source("slop score2 = 40✨\nscore2 = score2 + 2✨\nhallucinate(score2)✨")
+    assert result.stderr == ""
+    assert result.exit_code == 0
+    assert result.stdout == "42\n"
+
+
+def test_function_and_parameter_names_may_contain_digits():
+    result = run_source("clanker add2(a1, b2) {\n    ship a1 + b2✨\n}\nhallucinate(add2(40, 2))✨")
+    assert result.stderr == ""
+    assert result.exit_code == 0
+    assert result.stdout == "42\n"
 
 
 def test_hallucinate_is_an_identifier_not_a_keyword():
