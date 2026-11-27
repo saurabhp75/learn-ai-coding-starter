@@ -125,12 +125,11 @@ ralph count < MAX {
             body: JSON.stringify({ source: source.value }),
           });
           const result = await response.json();
+          output.textContent = result.stdout || "";
           if (result.stderr) {
-            output.textContent = "";
-            return;
-          }
-          output.textContent = result.stdout;
-          if (result.stderr) {
+            if (output.textContent && !output.textContent.endsWith("\n")) {
+              output.append("\n");
+            }
             const err = document.createElement("span");
             err.className = "err";
             err.textContent = result.stderr;
