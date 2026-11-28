@@ -25,7 +25,7 @@
       "playwright": {
         "type": "local",
         "command": [
-          "bunx",
+          "/Users/saurabh/.bun/bin/bunx",
           "--bun",
           "@playwright/mcp@0.0.80",
           "--isolated",
@@ -38,7 +38,7 @@
       "chrome-devtools": {
         "type": "local",
         "command": [
-          "bunx",
+          "/Users/saurabh/.bun/bin/bunx",
           "--bun",
           "chrome-devtools-mcp@latest",
           "--isolated",
