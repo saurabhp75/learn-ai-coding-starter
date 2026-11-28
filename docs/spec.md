@@ -82,11 +82,13 @@ No implicit conversions.
 ```slop
 loadbearing LIMIT = 100✨
 slop score = 10✨
-score = score + 5✨
+score += 5✨
 score = score + 1✨
 ```
 
 Assignment is a statement, not an expression: `name = expression✨`. It updates the nearest existing mutable variable. Assigning to a `loadbearing` binding is a runtime error: `cannot assign to loadbearing 'LIMIT'`. Reading or assigning an undefined name is also a runtime error.
+
+Compound assignment is also a statement: `name += expression✨`. The right-hand expression is evaluated first, then added to the variable's current value. Numbers add and strings concatenate, following the same rules as `+`. It is equivalent to `name = name + expression`, except that the right-hand side is evaluated before the current value is read. Assigning to a `loadbearing` binding or combining incompatible types is a runtime error.
 
 Every brace block is a lexical scope. Assignment searches the current scope, then each enclosing scope.
 
